@@ -1,4 +1,4 @@
-% Created 2023-02-11 Sat 13:52
+% Created 2023-02-11 Sat 16:39
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,7 +27,7 @@
 \maketitle
 
 \section{Problem 1}
-\label{sec:org4cd41c3}
+\label{sec:orgc7e688f}
 We will be using the following formula to calculate FLOPS of my CPU
 
 \[FLOPS = cpu\_speed \times num\_cores \times avx\_factor \times fma\_factor \]
@@ -198,7 +198,7 @@ Latency issue caps our machine speed at 0.9843749507812526 GFLOPS
 less than \texttt{0.9843749507812526 GFLOPS}.
 
 \section{Problem 2}
-\label{sec:org1c6248b}
+\label{sec:orgeac4458}
 Let us assume information is propogating at the speed of light. And latency time
 is the time it took starting from CPU issues a data request til the time data
 starts to arrive at the cache.
@@ -224,8 +224,202 @@ in class that it's much longer. Probably due to the need to actually find and
 retrieve those data in DRAM.
 
 \section{Problem 3}
-\label{sec:orgce55d6f}
+\label{sec:org955073b}
+Neural Network Processing Unit
+Field-Programmable Gate Array
+Tensor Processing Unit
+report features
 
 \section{Problem 4}
-\label{sec:orgb4acbd6}
+\label{sec:org9fb89da}
+\textbf{In conclusion}, \textbf{4} axioms are violated. I will discuss about each of them.
+
+\textbf{Note}, the following discussion does not consider the three special values
+\texttt{Inf}, \texttt{-Inf}, and \texttt{NaN} as the starting point of operation. But if any of them
+is reached during the calculation, it's fine. If you include them, \textbf{all of the
+axioms are violates, some are not well-defined}
+
+\subsection{Associativity of addition}
+\label{sec:org88cb346}
+\textbf{Satisfied}
+
+\begin{verbatim}
+begin
+    trials = 100000
+    rand_float_pairs = rand(Float32,(2,trials))
+    for ii in 1:trials
+        a,b = rand_float_pairs[:,ii]
+        # we probably want to use == in this case since we are testing
+        # if the same EXACTLY
+        @assert bitstring(a + b) == bitstring(b + a) "Addition is not \
+                                                associative for floats"
+    end
+    println("Addition is associative for floats")
+    if !(NaN32 + 0.5 == 0.5 + NaN32)
+        # had to do this org babel does not output err
+        println("NaN violates this axiom!")
+    end
+end
+\end{verbatim}
+
+\begin{verbatim}
+Addition is associative for floats
+NaN violates this axiom!
+\end{verbatim}
+
+\subsection{Exitence of additive identity}
+\label{sec:org53c3d43}
+
+\textbf{Not satisfied}, we see \(0\) is not approximated in the bit-wise representation
+ of a float. However, there are two additive identity \(0.0\) and \(-0.0\)!
+\begin{verbatim}
+zero = 0.0
+other_zero = -0.0
+if bitstring(zero) != bitstring(other_zero)
+    println("Additive identity is not unique!")
+end
+if !(NaN32 - NaN32 == 0.0)
+    println("NaN violates this axiom")
+end
+\end{verbatim}
+
+\begin{verbatim}
+0.0
+-0.0
+Additive identity is not unique!
+NaN violates this axiom
+\end{verbatim}
+
+\subsection{Existence of additive inverses}
+\label{sec:org8944002}
+\textbf{Satisfied}, we could always invert the sign bit of a float to create its
+ additive inverse.
+
+\begin{verbatim}
+begin
+    trials = 1000000
+    rand_floats = rand(Float32,trials)
+    for i in 1:trials
+        @assert rand_floats[i] - rand_floats[i] == 0.0 "Additive \
+                                             Inverse does not exist"
+        a_str = bitstring(rand_floats[i])
+        b_str = bitstring(- rand_floats[i])
+        @assert  a_str[2:32] == b_str[2:32] && a_str[1] != b_str[1] "Additive\
+              Inverse does not only differs by sign"
+    end
+    println("There exists additive inverse for all floats")
+    if !(NaN32 - NaN32 == 0.0 )
+        println("NaN violates this axiom")
+    end
+end
+\end{verbatim}
+
+\begin{verbatim}
+There exists additive inverse for all floats
+NaN violates this axiom
+\end{verbatim}
+
+\subsection{Commutativity of multiplication}
+\label{sec:org4121f3d}
+\textbf{Satisfied}
+
+\begin{verbatim}
+begin
+    trials = 1000000
+    rand_floats = rand(Float32,(2,trials))
+    for i in 1:trials
+        @assert (rand_floats[1,i] * rand_floats[2,i] ==
+                   rand_floats[2,i] * rand_floats[1,i])
+        "multiplication is not commutative"
+    end
+    println("Multiplication is commutative")
+    if !(NaN32 * 1.0 == 1.0 * NaN32)
+        println("NaN violates this axiom")
+    end
+end
+\end{verbatim}
+
+\begin{verbatim}
+Multiplication is commutative
+NaN violates this axiom
+\end{verbatim}
+
+\subsection{Associativity of Multiplication}
+\label{sec:org7fe54d2}
+\textbf{Not satisfied}, consider a overflowing case
+
+\begin{verbatim}
+begin
+    a = prevfloat(typemax(Float32));
+    b = 2^5;
+    c = 1/2^5;
+    (a * b) * c == a * (b * c)
+end
+\end{verbatim}
+
+\begin{verbatim}
+false
+\end{verbatim}
+
+\subsection{Existence of multiplicative identity}
+\label{sec:org1b88cdf}
+\textbf{Satisfied}, in theory, \(1.0\) is well represented in floats, i.e no
+approximation. So we could always implement a special operation rule such that
+when it sees \(1.0\) been multiplied to something, it simply returns that thing.
+
+\begin{verbatim}
+begin
+    trials = 1000000
+    rand_floats = rand(Float32,trials)
+    for i in 1:trials
+        @assert rand_floats[i] * 1.0 == rand_floats[i] "There's no \
+                 identity for multiplication"
+    end
+    println("1.0 is the multiplicative identity")
+end
+#again NaN violates it but I won't write it out
+\end{verbatim}
+
+\begin{verbatim}
+1.0 is the multiplicative identity
+\end{verbatim}
+
+\subsection{Existence of multiplicative inverses}
+\label{sec:org1f4123e}
+\textbf{Not satisfied}, there exists number whose inverse can only be approximately
+represented. When they get multiplied together, you don't get \(1.0\).
+
+\begin{verbatim}
+begin
+    a = 9/11
+    a_inv = 11/9
+    a * a_inv == 1.0
+end
+\end{verbatim}
+
+\begin{verbatim}
+false
+\end{verbatim}
+
+\subsection{Distributive law}
+\label{sec:org6f19020}
+\textbf{Not satisfied}, like associativity of multiplication, overflow could be a big
+problem.
+
+\begin{verbatim}
+begin
+    a = prevfloat(typemax(Float32))
+    b = - a / 2
+    c = 100
+    (a + b) * c  == a * c + b * c
+end
+\end{verbatim}
+
+\begin{verbatim}
+false
+\end{verbatim}
+
+\subsection{Zero-one law}
+\label{sec:org231fed0}
+\textbf{Satisfied}, \(1.0\) does not equal to either \(0.0\) or \(-0.0\).
 \end{document}
