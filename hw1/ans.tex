@@ -1,4 +1,4 @@
-% Created 2023-02-11 Sat 13:04
+% Created 2023-02-11 Sat 13:52
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,7 +27,7 @@
 \maketitle
 
 \section{Problem 1}
-\label{sec:org6e6653a}
+\label{sec:org4cd41c3}
 We will be using the following formula to calculate FLOPS of my CPU
 
 \[FLOPS = cpu\_speed \times num\_cores \times avx\_factor \times fma\_factor \]
@@ -198,15 +198,34 @@ Latency issue caps our machine speed at 0.9843749507812526 GFLOPS
 less than \texttt{0.9843749507812526 GFLOPS}.
 
 \section{Problem 2}
-\label{sec:org21def95}
-Let us assume information is propogating at the speed of light which is
-approximately \(3 \times 10^{11} cm/s\). Then the latency time will be \[ t_{la}
-= d / v = 10 cm / (3 \times 10^{11} cm / s) = 3.33 \times 10^{-11} s\].
+\label{sec:org1c6248b}
+Let us assume information is propogating at the speed of light. And latency time
+is the time it took starting from CPU issues a data request til the time data
+starts to arrive at the cache.
 
-To compare it to the CPU speed
+\begin{verbatim}
+begin
+    c = 29979245800 # cm/s
+    dist = 10 # cm
+    cpu_freq =  2.992969 # GHz
+    println("The latency is $(dist*2/c) seconds")
+    println("The CPU clock time is $(1/(cpu_freq * 10^9)) seconds")
+end
+\end{verbatim}
+
+\begin{verbatim}
+The latency is 6.671281903963041e-10 seconds
+The CPU clock time is 3.341163907811942e-10 seconds
+\end{verbatim}
+
+
+The minimum latency time is \textbf{roughly twice} as the cpu clock. But we were told
+in class that it's much longer. Probably due to the need to actually find and
+retrieve those data in DRAM.
+
 \section{Problem 3}
-\label{sec:org7dc171d}
+\label{sec:orgce55d6f}
 
 \section{Problem 4}
-\label{sec:orgbe57195}
+\label{sec:orgb4acbd6}
 \end{document}

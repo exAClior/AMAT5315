@@ -101,11 +101,28 @@ end
 less than ~0.9843749507812526 GFLOPS~.
 
 * Problem 2
-Let us assume information is propogating at the speed of light which is
-approximately \(3 \times 10^{11} cm/s\). Then the latency time will be \[ t_{la}
-= d / v = 10 cm / (3 \times 10^{11} cm / s) = 3.33 \times 10^{-11} s\].
+Let us assume information is propogating at the speed of light. And latency time
+is the time it took starting from CPU issues a data request til the time data
+starts to arrive at the cache.
 
-To compare it to the CPU speed
+#+begin_src julia :exports both :results output
+begin
+    c = 29979245800 # cm/s
+    dist = 10 # cm
+    cpu_freq =  2.992969 # GHz
+    println("The latency is $(dist*2/c) seconds")
+    println("The CPU clock time is $(1/(cpu_freq * 10^9)) seconds")
+end
+#+end_src
+
+#+RESULTS:
+: The latency is 6.671281903963041e-10 seconds
+: The CPU clock time is 3.341163907811942e-10 seconds
+
+The minimum latency time is *roughly twice* as the cpu clock. But we were told
+in class that it's much longer. Probably due to the need to actually find and
+retrieve those data in DRAM.
+
 * Problem 3
 
 * Problem 4
