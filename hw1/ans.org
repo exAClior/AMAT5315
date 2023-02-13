@@ -129,6 +129,22 @@ retrieve those data in DRAM.
  Tensor Processing Unit
  report features
 
+ NPU(Neural Network Processing Unit), is a processor that specializes in the operations over neural network.
+  Good at multiply-accumulate calculation
+  Paralized computation
+  Computation logic is very simple?
+  Good for massive multi-media data
+    Focus on low precission operations
+
+  Has data storage and processing together. Therefore, it will be very power efficient compare to the CPU and GPU collaboration
+
+ FPGA(Field-Programmable Gate Array), like the name suggests, it is programmable and could be used for prototyping etc. Via Programmable interconnect and programmable logic block (See [[https://www.latticesemi.com/en/What-is-an-FPGA][first figure here]]) From the hetrogenious comp[osition of the structure, we know it is very good at parallel computation. Not only in the sense of multi-chip collaboration but also in the sense of ]
+ According to this [[https://en.wikichip.org/wiki/neural_processor][Wiki Chip page]], the TPU is a specialized type of Neural Network Processing Unit. It is good at deep learning tasks where the NPU is good at machine learning tasks in general. They are also proprietary. Google develops and only provides it on GCP. According to [[https://www.bizety.com/2023/01/03/ai-chips-npu-vs-tpu/][this page,]] TPU is highly parallizable and programmable
+** Sources
+[[https://en.wikichip.org/wiki/neural_processor][- NPU]]
+- [[https://www.utmel.com/blog/categories/integrated%20circuit/neural-processing-unit-npu-explained][NPU2]]
+- [[https://www.arm.com/zh-TW/glossary/fpga][FPGA]]
+- [[https://en.wikipedia.org/wiki/Tensor_Processing_Unit][TPU]]
 * Problem 4
 *In conclusion*, *4* axioms are violated. I will discuss about each of them.
 
