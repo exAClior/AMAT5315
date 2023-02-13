@@ -1,4 +1,4 @@
-% Created 2023-02-11 Sat 16:39
+% Created 2023-02-13 Mon 18:56
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,7 +27,7 @@
 \maketitle
 
 \section{Problem 1}
-\label{sec:orgc7e688f}
+\label{sec:org9241f2c}
 We will be using the following formula to calculate FLOPS of my CPU
 
 \[FLOPS = cpu\_speed \times num\_cores \times avx\_factor \times fma\_factor \]
@@ -198,7 +198,7 @@ Latency issue caps our machine speed at 0.9843749507812526 GFLOPS
 less than \texttt{0.9843749507812526 GFLOPS}.
 
 \section{Problem 2}
-\label{sec:orgeac4458}
+\label{sec:orgc72fee5}
 Let us assume information is propogating at the speed of light. And latency time
 is the time it took starting from CPU issues a data request til the time data
 starts to arrive at the cache.
@@ -224,14 +224,48 @@ in class that it's much longer. Probably due to the need to actually find and
 retrieve those data in DRAM.
 
 \section{Problem 3}
-\label{sec:org955073b}
-Neural Network Processing Unit
-Field-Programmable Gate Array
-Tensor Processing Unit
-report features
+\label{sec:org2669384}
+
+NPU is a processor that specializes in the operations over machine learning
+tasks. Regarding the machine learning tasks, it will be more perfomant than a
+conventional CPU and more power efficient and performant than the CPU and GPU
+combination. To achieve such advantage on machine learning tasks, it has two
+major differences compared to a CPU. Firstly, it supports way less instructions
+compare to a CPU. But for the instructions it supports, its architecture makes
+sure it's really efficient and powerful at it. For example, it is good at
+multiply-accumulate calculation which is used a lot in machine learning tasks.
+The supported calculation is also of low precission, (8 bits compare to 64 and
+32 bit supported in CPU), which further decreases the calculation load of it.
+Secondly, it supports paralized computation much better than CPU does. NPU
+beats CPU and GPU combination in terms of data processing speed since it does
+not require data to be transferred from the CPU to GPU. Everything is handled
+inside NPU. Therefore, it is good for machine learning tasks.
+
+According to this \href{https://en.wikichip.org/wiki/neural\_processor}{Wiki Chip page}, the TPU is a specialized type of NPU. It is
+good at deep learning tasks where the NPU is good at machine learning tasks in
+general. They are also proprietary. Google develops and only provides it on
+GCP. According to \href{https://www.bizety.com/2023/01/03/ai-chips-npu-vs-tpu/}{this page,} TPU is highly parallizable and programmable.
+
+FPGA, like the name suggests, is programmable and could be used for prototyping
+devices. Customers could purchase the device long before they figure out what
+exactly their functionality needs to be. The programmability of FPGA is
+achieved via Programmable interconnect and programmable logic block (See first
+\href{https://www.latticesemi.com/en/What-is-an-FPGA}{figure} on this site). From the homogenous composition of the structure of FPGA,
+we may infer thatit is very good at parallel computation.
+
+\subsection{Sources}
+\label{sec:org6702018}
+Here are a few pages that I referenced. I did not bother to put them in bibtex
+form.
+\href{https://en.wikichip.org/wiki/neural\_processor}{- NPU}
+\begin{itemize}
+\item \href{https://www.utmel.com/blog/categories/integrated\%20circuit/neural-processing-unit-npu-explained}{NPU2}
+\item \href{https://www.arm.com/zh-TW/glossary/fpga}{FPGA}
+\item \href{https://en.wikipedia.org/wiki/Tensor\_Processing\_Unit}{TPU}
+\end{itemize}
 
 \section{Problem 4}
-\label{sec:org9fb89da}
+\label{sec:org430ab02}
 \textbf{In conclusion}, \textbf{4} axioms are violated. I will discuss about each of them.
 
 \textbf{Note}, the following discussion does not consider the three special values
@@ -240,7 +274,7 @@ is reached during the calculation, it's fine. If you include them, \textbf{all o
 axioms are violates, some are not well-defined}
 
 \subsection{Associativity of addition}
-\label{sec:org88cb346}
+\label{sec:orgb97bb6f}
 \textbf{Satisfied}
 
 \begin{verbatim}
@@ -268,7 +302,7 @@ NaN violates this axiom!
 \end{verbatim}
 
 \subsection{Exitence of additive identity}
-\label{sec:org53c3d43}
+\label{sec:org3e77d95}
 
 \textbf{Not satisfied}, we see \(0\) is not approximated in the bit-wise representation
  of a float. However, there are two additive identity \(0.0\) and \(-0.0\)!
@@ -291,7 +325,7 @@ NaN violates this axiom
 \end{verbatim}
 
 \subsection{Existence of additive inverses}
-\label{sec:org8944002}
+\label{sec:org4793e7a}
 \textbf{Satisfied}, we could always invert the sign bit of a float to create its
  additive inverse.
 
@@ -320,7 +354,7 @@ NaN violates this axiom
 \end{verbatim}
 
 \subsection{Commutativity of multiplication}
-\label{sec:org4121f3d}
+\label{sec:org1492517}
 \textbf{Satisfied}
 
 \begin{verbatim}
@@ -345,7 +379,7 @@ NaN violates this axiom
 \end{verbatim}
 
 \subsection{Associativity of Multiplication}
-\label{sec:org7fe54d2}
+\label{sec:org46d8f5b}
 \textbf{Not satisfied}, consider a overflowing case
 
 \begin{verbatim}
@@ -362,7 +396,7 @@ false
 \end{verbatim}
 
 \subsection{Existence of multiplicative identity}
-\label{sec:org1b88cdf}
+\label{sec:org214a172}
 \textbf{Satisfied}, in theory, \(1.0\) is well represented in floats, i.e no
 approximation. So we could always implement a special operation rule such that
 when it sees \(1.0\) been multiplied to something, it simply returns that thing.
@@ -385,7 +419,7 @@ end
 \end{verbatim}
 
 \subsection{Existence of multiplicative inverses}
-\label{sec:org1f4123e}
+\label{sec:orgcb1cc3d}
 \textbf{Not satisfied}, there exists number whose inverse can only be approximately
 represented. When they get multiplied together, you don't get \(1.0\).
 
@@ -402,7 +436,7 @@ false
 \end{verbatim}
 
 \subsection{Distributive law}
-\label{sec:org6f19020}
+\label{sec:orgd896d53}
 \textbf{Not satisfied}, like associativity of multiplication, overflow could be a big
 problem.
 
@@ -420,6 +454,6 @@ false
 \end{verbatim}
 
 \subsection{Zero-one law}
-\label{sec:org231fed0}
+\label{sec:org7f2da8f}
 \textbf{Satisfied}, \(1.0\) does not equal to either \(0.0\) or \(-0.0\).
 \end{document}
