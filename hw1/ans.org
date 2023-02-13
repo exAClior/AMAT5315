@@ -126,10 +126,14 @@ retrieve those data in DRAM.
 * Problem 3
 
  NPU(Neural Network Processing Unit), is a processor that specializes in the
- operations over machine learning tasks. As a consequence, it will be more
- power efficient and performant than CPU. Good at multiply-accumulate
- calculation Paralized computation Computation logic is very simple? Good for
- massive multi-media data Focus on low precission operations
+ operations over machine learning tasks. Overall, it will be more perfomant than
+ a CPU and more power efficient and performant than the CPU and GPU combination.
+ To achieve this, it has two major difference compared to a CPU. Firstly, it
+ supports way less instructions compare to a CPU. But for the instructions it
+ supports, its architecture makes usre its really efficient powerful at it. For
+ example, it is really good at multiply-accumulate calculation which is used a
+ lot in machine learning tasks. Furthermore, it easily supports paralized computation Computation logic is very
+ simple? Good for massive multi-media data Focus on low precission operations
 
  Has data storage and processing together. Therefore, it will be very power
  efficient compare to the CPU and GPU collaboration
