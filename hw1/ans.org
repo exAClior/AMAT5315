@@ -147,10 +147,19 @@ retrieve those data in DRAM.
 
  FPGA, like the name suggests, is programmable and could be used for prototyping
  devices. Customers could purchase the device long before they figure out what
- exactly their functionality needs to be. The programmability of FPGA is
- achieved via Programmable interconnect and programmable logic block (See first
- [[https://www.latticesemi.com/en/What-is-an-FPGA][figure]] on this site). From the homogenous composition of the structure of FPGA,
- we may infer thatit is very good at parallel computation.
+ exactly their functionality needs to be. Therefore, they could develop the
+ hardware at the same time as the software that will be ran on it. Doing such
+ makes performance much easier according to [[https://en.wikipedia.org/wiki/Field-programmable_gate_array][wiki page]]. The programmability of
+ FPGA is achieved via Programmable interconnect and programmable logic block
+ (See first [[https://www.latticesemi.com/en/What-is-an-FPGA][figure]] on this site). From the homogenous composition of the
+ structure of FPGA, we may infer thatit is very good at parallel computation.
+ The data I/O time of FPGA is very fast unlike that of CPU. Furthermore, it
+ employs bi-directional memory bus. Finally, FPGA has its pros and cons in terms
+ of security. Since the chip could be programmed later to achieve the
+ funcationality that is desired, it is really hard to have a successful
+ malicious modification of the chip. However, since the chip could be modified
+ at any given time, with physical access, it might also be possible to plant a
+ backdoor.
 
 ** Sources
 Here are a few pages that I referenced. I did not bother to put them in bibtex

@@ -1,4 +1,4 @@
-% Created 2023-02-13 Mon 18:56
+% Created 2023-02-13 Mon 19:12
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,7 +27,7 @@
 \maketitle
 
 \section{Problem 1}
-\label{sec:org9241f2c}
+\label{sec:org137b448}
 We will be using the following formula to calculate FLOPS of my CPU
 
 \[FLOPS = cpu\_speed \times num\_cores \times avx\_factor \times fma\_factor \]
@@ -198,7 +198,7 @@ Latency issue caps our machine speed at 0.9843749507812526 GFLOPS
 less than \texttt{0.9843749507812526 GFLOPS}.
 
 \section{Problem 2}
-\label{sec:orgc72fee5}
+\label{sec:org1ae881d}
 Let us assume information is propogating at the speed of light. And latency time
 is the time it took starting from CPU issues a data request til the time data
 starts to arrive at the cache.
@@ -224,7 +224,7 @@ in class that it's much longer. Probably due to the need to actually find and
 retrieve those data in DRAM.
 
 \section{Problem 3}
-\label{sec:org2669384}
+\label{sec:org08febe1}
 
 NPU is a processor that specializes in the operations over machine learning
 tasks. Regarding the machine learning tasks, it will be more perfomant than a
@@ -248,13 +248,22 @@ GCP. According to \href{https://www.bizety.com/2023/01/03/ai-chips-npu-vs-tpu/}{
 
 FPGA, like the name suggests, is programmable and could be used for prototyping
 devices. Customers could purchase the device long before they figure out what
-exactly their functionality needs to be. The programmability of FPGA is
-achieved via Programmable interconnect and programmable logic block (See first
-\href{https://www.latticesemi.com/en/What-is-an-FPGA}{figure} on this site). From the homogenous composition of the structure of FPGA,
-we may infer thatit is very good at parallel computation.
+exactly their functionality needs to be. Therefore, they could develop the
+hardware at the same time as the software that will be ran on it. Doing such
+makes performance much easier according to \href{https://en.wikipedia.org/wiki/Field-programmable\_gate\_array}{wiki page}. The programmability of
+FPGA is achieved via Programmable interconnect and programmable logic block
+(See first \href{https://www.latticesemi.com/en/What-is-an-FPGA}{figure} on this site). From the homogenous composition of the
+structure of FPGA, we may infer thatit is very good at parallel computation.
+The data I/O time of FPGA is very fast unlike that of CPU. Furthermore, it
+employs bi-directional memory bus. Finally, FPGA has its pros and cons in terms
+of security. Since the chip could be programmed later to achieve the
+funcationality that is desired, it is really hard to have a successful
+malicious modification of the chip. However, since the chip could be modified
+at any given time, with physical access, it might also be possible to plant a
+backdoor.
 
 \subsection{Sources}
-\label{sec:org6702018}
+\label{sec:org3032b6c}
 Here are a few pages that I referenced. I did not bother to put them in bibtex
 form.
 \href{https://en.wikichip.org/wiki/neural\_processor}{- NPU}
@@ -265,7 +274,7 @@ form.
 \end{itemize}
 
 \section{Problem 4}
-\label{sec:org430ab02}
+\label{sec:org78a5428}
 \textbf{In conclusion}, \textbf{4} axioms are violated. I will discuss about each of them.
 
 \textbf{Note}, the following discussion does not consider the three special values
@@ -274,7 +283,7 @@ is reached during the calculation, it's fine. If you include them, \textbf{all o
 axioms are violates, some are not well-defined}
 
 \subsection{Associativity of addition}
-\label{sec:orgb97bb6f}
+\label{sec:org9e0ce83}
 \textbf{Satisfied}
 
 \begin{verbatim}
@@ -302,7 +311,7 @@ NaN violates this axiom!
 \end{verbatim}
 
 \subsection{Exitence of additive identity}
-\label{sec:org3e77d95}
+\label{sec:org4c3141a}
 
 \textbf{Not satisfied}, we see \(0\) is not approximated in the bit-wise representation
  of a float. However, there are two additive identity \(0.0\) and \(-0.0\)!
@@ -325,7 +334,7 @@ NaN violates this axiom
 \end{verbatim}
 
 \subsection{Existence of additive inverses}
-\label{sec:org4793e7a}
+\label{sec:org1d1662e}
 \textbf{Satisfied}, we could always invert the sign bit of a float to create its
  additive inverse.
 
@@ -354,7 +363,7 @@ NaN violates this axiom
 \end{verbatim}
 
 \subsection{Commutativity of multiplication}
-\label{sec:org1492517}
+\label{sec:org66e6fb9}
 \textbf{Satisfied}
 
 \begin{verbatim}
@@ -379,7 +388,7 @@ NaN violates this axiom
 \end{verbatim}
 
 \subsection{Associativity of Multiplication}
-\label{sec:org46d8f5b}
+\label{sec:org5818ad5}
 \textbf{Not satisfied}, consider a overflowing case
 
 \begin{verbatim}
@@ -396,7 +405,7 @@ false
 \end{verbatim}
 
 \subsection{Existence of multiplicative identity}
-\label{sec:org214a172}
+\label{sec:org5650838}
 \textbf{Satisfied}, in theory, \(1.0\) is well represented in floats, i.e no
 approximation. So we could always implement a special operation rule such that
 when it sees \(1.0\) been multiplied to something, it simply returns that thing.
@@ -419,7 +428,7 @@ end
 \end{verbatim}
 
 \subsection{Existence of multiplicative inverses}
-\label{sec:orgcb1cc3d}
+\label{sec:orgc5d0d94}
 \textbf{Not satisfied}, there exists number whose inverse can only be approximately
 represented. When they get multiplied together, you don't get \(1.0\).
 
@@ -436,7 +445,7 @@ false
 \end{verbatim}
 
 \subsection{Distributive law}
-\label{sec:orgd896d53}
+\label{sec:org6c59f7c}
 \textbf{Not satisfied}, like associativity of multiplication, overflow could be a big
 problem.
 
@@ -454,6 +463,6 @@ false
 \end{verbatim}
 
 \subsection{Zero-one law}
-\label{sec:org7f2da8f}
+\label{sec:orge079e87}
 \textbf{Satisfied}, \(1.0\) does not equal to either \(0.0\) or \(-0.0\).
 \end{document}
